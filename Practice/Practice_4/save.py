@@ -1,29 +1,21 @@
-def read_file(name):
-    '''if not os.path.exists(f"{name}.txt"):
-        flag = False
-        while flag != True:
-            name = input('Такого файла нет, вы ошибились, попробуйте ещё раз: ').strip()
-            if os.path.exists(f"{name}.txt"):
-                flag = True'''
-    f = open(f"{name}", mode="r", encoding="utf8")
-    strings = f.read().splitlines()
-    strings_list = [strings[i].split(' ') for i in range(len(strings))]
-    clear_strings_list = []
-    for i in range(len(strings_list)):
-        for word in strings_list[i]:
-            word = ''.join(filter(str.isalnum, word)).lower()
-            if len(word) > 0:
-                clear_strings_list.append(word)
-    words_set = set(clear_strings_list)
-    return sorted(words_set)
+def read_file(path):
+    file_mn = set()
+    file = open(path, encoding="utf8").read()
+    file_list = file.lower().split()
+    for i in range(len(file_list)):
+        if file_list[i].isalpha():
+            file_mn.add(file_list[i])
+        else:
+            new_s = ''.join([s for s in file_list[i] if s.isalpha()])
+            file_mn.add(new_s)
+    file_words = list(file_mn)
+    return file_words
 
+def save_file(path, words):
+    with open(path, "w", encoding='utf8') as file:
+        file.write(f"Всего уникальных слов: {len(words)}\n\n")
+        for i in range(len(words)):
+            file.write(str(sorted(words)[i])+"\n")
 
-
-
-def save_file(name, words):
-    new_text = open(f"{name}", mode='w', encoding='utf8')
-    new_text.write(f"{(len(words))} \n")
-    for i in range(len(words)):
-        new_text.write(f"{(words[i])} \n")
-
-# save_file('count.txt', words)
+words = read_file('data.txt')
+save_file('count.txt', words)
