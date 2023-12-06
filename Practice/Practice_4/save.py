@@ -1,4 +1,4 @@
-def read_file(path):
+'''def read_file(path):
     file_mn = set()
     file = open(path, encoding="utf8").read()
     file_list = file.lower().split()
@@ -18,4 +18,4 @@ def save_file(path, words):
             file.write(str(sorted(words)[i])+"\n")
 
 words = read_file('data.txt')
-save_file('count.txt', words)
+save_file('count.txt', words)'''
